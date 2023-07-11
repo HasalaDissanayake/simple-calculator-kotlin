@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="match_parent"
+        android:layout_height="331dp"
+        android:padding="40sp"
+        android:text="0"
+        android:textAlignment="viewEnd"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.071" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/clear"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_width="153dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="C"
+            android:textSize="24sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/parenthesis"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="()"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/percentage"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="%"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/division"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_width="153dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="/"
+            android:textSize="24sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/number07"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="7"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number08"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="8"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number09"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="9"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/multiplication"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="*"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/number04"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="4"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number05"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="5"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number06"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="6"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/substraction"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="-"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/number01"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="1"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number02"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="2"
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number03"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="3"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addition"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="+"
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/decimal"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="."
+            android:textSize="24sp"/>
+
+        <Button
+            android:id="@+id/number0"
+            android:layout_width="153dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="0"
+            android:textSize="24sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/equal"
+            android:layout_width="255dp"
+            style="@android:style/Widget.Material.Button.Small"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="="
+            android:textSize="24sp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
