@@ -11,7 +11,7 @@
     <TextView
         android:id="@+id/value"
         android:layout_width="match_parent"
-        android:layout_height="331dp"
+        android:layout_height="261dp"
         android:padding="40sp"
         android:text="0"
         android:textAlignment="viewEnd"
@@ -27,25 +27,16 @@
         android:layout_height="80dp"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/clear"
             style="@android:style/Widget.Material.Button.Small"
-            android:layout_width="153dp"
+            android:layout_width="255dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="C"
             android:textSize="24sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/parenthesis"
-            android:layout_width="153dp"
-            style="@android:style/Widget.Material.Button.Small"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="()"
-            android:textSize="24sp"/>
-
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/percentage"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
@@ -54,14 +45,15 @@
             android:text="%"
             android:textSize="24sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/division"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_width="153dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="/"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:backgroundTint="@color/btn" />
 
     </LinearLayout>
 
@@ -97,7 +89,7 @@
             android:text="9"
             android:textSize="24sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/multiplication"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
@@ -140,7 +132,7 @@
             android:text="6"
             android:textSize="24sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/substraction"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
@@ -176,14 +168,14 @@
 
         <Button
             android:id="@+id/number03"
-            android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
+            android:layout_width="153dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="3"
-            android:textSize="24sp"/>
+            android:textSize="24sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/addition"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
@@ -199,7 +191,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/decimal"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
@@ -217,7 +209,7 @@
             android:text="0"
             android:textSize="24sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/equal"
             android:layout_width="255dp"
             style="@android:style/Widget.Material.Button.Small"
