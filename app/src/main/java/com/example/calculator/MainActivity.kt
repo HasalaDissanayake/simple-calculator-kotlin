@@ -4,100 +4,143 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var displayTextView: TextView
-    private var input: String = ""
-    private var operator: String = ""
+    private lateinit var valueTextView: TextView
+    private val decimalFormat = DecimalFormat("#.##########")
+    private var expression: String = "0"
+    private var initialFlag:Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        displayTextView = findViewById(R.id.value)
+        valueTextView = findViewById(R.id.value)
 
+        val numberButtons = listOf<Button>(
+            findViewById(R.id.number0),
+            findViewById(R.id.number1),
+            findViewById(R.id.number2),
+            findViewById(R.id.number3),
+            findViewById(R.id.number4),
+            findViewById(R.id.number5),
+            findViewById(R.id.number6),
+            findViewById(R.id.number7),
+            findViewById(R.id.number8),
+            findViewById(R.id.number9),
+            findViewById(R.id.decimal)
+        )
 
-        input = ""
-        operator = ""
+        val operatorButtons = listOf<Button>(
+            findViewById(R.id.addition),
+            findViewById(R.id.substraction),
+            findViewById(R.id.multiplication),
+            findViewById(R.id.division),
+            findViewById(R.id.percentage)
+        )
 
+        val clearButton = findViewById<Button>(R.id.clear)
+        val equalButton = findViewById<Button>(R.id.equal)
 
-        for (i in 0..9) {
-            val buttonId = resources.getIdentifier("number$i", "id", packageName)
-            val button = findViewById<Button>(buttonId)
-            button.setOnClickListener {
-                input += i.toString()
-                displayTextView.text = input
+        clearButton.setOnClickListener {
+            clearDisplay()
+        }
+
+        equalButton.setOnClickListener {
+            calculateResult()
+        }
+
+        for (button in numberButtons) {
+            button.setOnClickListener { view ->
+                val buttonText = (view as Button).text.toString()
+                appendValue(buttonText)
             }
         }
 
-        val decimalButton = findViewById<Button>(R.id.decimal)
-        decimalButton.setOnClickListener {
-            if (!input.contains(".")) {
-                input += "."
-                displayTextView.text = input
+        for (button in operatorButtons) {
+            button.setOnClickListener { view ->
+                val buttonText = (view as Button).text.toString()
+                appendOperator(buttonText)
             }
         }
-
-        findViewById<Button>(R.id.addition).setOnClickListener { setOperator("+") }
-        findViewById<Button>(R.id.substraction).setOnClickListener { setOperator("-") }
-        findViewById<Button>(R.id.multiplication).setOnClickListener { setOperator("*") }
-        findViewById<Button>(R.id.division).setOnClickListener { setOperator("/") }
-        findViewById<Button>(R.id.percentage).setOnClickListener { setOperator("%") }
-
-        findViewById<Button>(R.id.equal).setOnClickListener { calculateResult() }
-
-        findViewById<Button>(R.id.clear).setOnClickListener { clearCalculator() }
     }
 
-    private fun setOperator(operator: String) {
-        this.operator = operator
-        input += operator
-        displayTextView.text = input
+    private fun appendValue(digit: String) {
+        if(initialFlag && expression == "0"){
+            expression = digit
+            initialFlag = false
+        } else{
+            expression += digit
+        }
+        updateDisplay()
     }
 
-    private fun clearCalculator() {
-        input = ""
-        operator = ""
-        displayTextView.text = ""
+    private fun appendOperator(operator: String) {
+        expression += operator
+        updateDisplay()
     }
 
     private fun calculateResult() {
-        if (operator.isEmpty() || input.endsWith(operator)) {
-            displayTextView.text = input
-            return
+        try {
+            val result = evaluateExpression(expression)
+            expression = decimalFormat.format(result)
+            updateDisplay()
+        } catch (e: ArithmeticException) {
+            expression = "Error"
+            updateDisplay()
+        } catch (e: Exception) {
+            expression = "Error"
+            updateDisplay()
         }
+    }
 
-        val operands = input.split("\\\\" + operator).toTypedArray()
-
-        if (operands.size != 2) {
-            displayTextView.text = "Error"
-            return
-        }
-
-        val operand1 = operands[0].toDouble()
-        val operand2 = operands[1].toDouble()
-
-        val result: Double = when (operator) {
-            "+" -> operand1 + operand2
-            "-" -> operand1 - operand2
-            "*" -> operand1 * operand2
-            "/" -> {
+    private fun evaluateExpression(expression: String): Double {
+        return when {
+            expression.isEmpty() -> 0.0
+            expression.contains("%") -> {
+                val parts = expression.split("%")
+                val operand1 = parts[0].toDouble()
+                operand1 / 100
+            }
+            expression.contains("/") -> {
+                val parts = expression.split("/")
+                val operand1 = parts[0].toDouble()
+                val operand2 = parts[1].toDouble()
                 if (operand2 == 0.0) {
-                    displayTextView.text = "Error"
-                    return
+                    throw ArithmeticException("Division by zero")
                 }
                 operand1 / operand2
             }
-            "%" -> operand1 * (operand2 / 100)
-            else -> {
-                displayTextView.text = "Error"
-                return
+            expression.contains("*") -> {
+                val parts = expression.split("*")
+                val operand1 = parts[0].toDouble()
+                val operand2 = parts[1].toDouble()
+                operand1 * operand2
             }
+            expression.contains("-") -> {
+                val parts = expression.split("-")
+                val operand1 = parts[0].toDouble()
+                val operand2 = parts[1].toDouble()
+                operand1 - operand2
+            }
+            expression.contains("+") -> {
+                val parts = expression.split("+")
+                val operand1 = parts[0].toDouble()
+                val operand2 = parts[1].toDouble()
+                operand1 + operand2
+            }
+            else -> expression.toDouble()
         }
+    }
 
-        displayTextView.text = result.toString()
-        input = result.toString()
-        operator = ""
+    private fun updateDisplay() {
+        valueTextView.text = expression
+    }
+
+    private fun clearDisplay() {
+        expression = "0"
+        initialFlag = true
+        updateDisplay()
     }
 }
-
