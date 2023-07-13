@@ -1,203 +1,103 @@
 package com.example.calculator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import java.util.Stack
-import kotlin.math.exp
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
-
-
-    private lateinit var valueTextView: TextView
-    private var currentValue: String = "0"
-    private var expressionStack = Stack<Any>()
+    private lateinit var displayTextView: TextView
+    private var input: String = ""
+    private var operator: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        valueTextView = findViewById<TextView>(R.id.value)
+        displayTextView = findViewById(R.id.value)
 
-        expressionStack.push(0)
 
-        val numberButtons = listOf(
-            R.id.number0, R.id.number01, R.id.number02, R.id.number03,
-            R.id.number04, R.id.number05, R.id.number06, R.id.number07,
-            R.id.number08, R.id.number09, R.id.decimal
-        )
-        numberButtons.forEach { buttonId ->
-            findViewById<Button>(buttonId).setOnClickListener {
-                var topValue:Any = expressionStack.peek()
-                var newNumberString:String = (it as Button).text.toString()
+        input = ""
+        operator = ""
 
-                if(topValue == "%"){
-                    try {
-                        val result = calculateValue()
-                        currentValue = result.toString()
-                        valueTextView.text = currentValue
-                    } catch (e: Exception) {
-                        currentValue = "Error: ${e.javaClass.simpleName}"
-                        valueTextView.text = currentValue
-                    }
-                }
 
-                if(topValue is String && expressionStack.size == 3){
-                    try {
-                        val result = calculateValue()
-                        currentValue = result.toString()
-                        valueTextView.text = currentValue
-                    } catch (e: Exception) {
-                        currentValue = "Error: ${e.javaClass.simpleName}"
-                        valueTextView.text = currentValue
-                    }
-                }
-
-                if(topValue is Int || topValue is Double || topValue == "."){
-                    while(expressionStack.isNotEmpty()){
-                        if(topValue is String && topValue !== "."){
-                            break
-                        }
-                        newNumberString = topValue.toString() + newNumberString
-                        expressionStack.pop()
-                        topValue = expressionStack.peek()
-                    }
-                }
-
-                val newNumber = newNumberString.toDouble()
-                expressionStack.push(newNumber)
-
-                appendToValue(newNumberString)
+        for (i in 0..9) {
+            val buttonId = resources.getIdentifier("number$i", "id", packageName)
+            val button = findViewById<Button>(buttonId)
+            button.setOnClickListener {
+                input += i.toString()
+                displayTextView.text = input
             }
         }
 
-        val operatorButtons = listOf(
-            R.id.addition, R.id.substraction,
-            R.id.multiplication, R.id.division, R.id.percentage
-        )
-        operatorButtons.forEach { buttonId ->
-            findViewById<Button>(buttonId).setOnClickListener {
-
-                if(expressionStack.peek() == "%"){
-                    try {
-                        val result = calculateValue()
-                        currentValue = result.toString()
-                        valueTextView.text = currentValue
-                    } catch (e: Exception) {
-                        currentValue = "Error: ${e.javaClass.simpleName}"
-                        valueTextView.text = currentValue
-                    }
-                }
-                else if(expressionStack.size == 3){
-                    try {
-                        val result = calculateValue()
-                        currentValue = result.toString()
-                        valueTextView.text = currentValue
-                    } catch (e: Exception) {
-                        currentValue = "Error: ${e.javaClass.simpleName}"
-                        valueTextView.text = currentValue
-                    }
-                }
-                expressionStack.push((it as Button).text.toString())
-                performOperation((it).text.toString())
+        val decimalButton = findViewById<Button>(R.id.decimal)
+        decimalButton.setOnClickListener {
+            if (!input.contains(".")) {
+                input += "."
+                displayTextView.text = input
             }
         }
 
-        findViewById<Button>(R.id.clear).setOnClickListener{
-            clearValue()
-        }
+        findViewById<Button>(R.id.addition).setOnClickListener { setOperator("+") }
+        findViewById<Button>(R.id.substraction).setOnClickListener { setOperator("-") }
+        findViewById<Button>(R.id.multiplication).setOnClickListener { setOperator("*") }
+        findViewById<Button>(R.id.division).setOnClickListener { setOperator("/") }
+        findViewById<Button>(R.id.percentage).setOnClickListener { setOperator("%") }
 
-        findViewById<Button>(R.id.equal).setOnClickListener{
-            try {
-                val result = calculateValue()
-                currentValue = result.toString()
-                valueTextView.text = currentValue
-            } catch (e: Exception) {
-                currentValue = "Error: ${e.javaClass.simpleName}"
-                valueTextView.text = currentValue
-            }
-        }
+        findViewById<Button>(R.id.equal).setOnClickListener { calculateResult() }
+
+        findViewById<Button>(R.id.clear).setOnClickListener { clearCalculator() }
     }
 
-    private fun appendToValue(text: String) {
-        currentValue = if(currentValue == "0") {
-            text
-        } else {
-            currentValue + text
-        }
-        valueTextView.text = currentValue
+    private fun setOperator(operator: String) {
+        this.operator = operator
+        input += operator
+        displayTextView.text = input
     }
 
-    private  fun performOperation(operator: String) {
-        currentValue += operator
-        valueTextView.text = currentValue
+    private fun clearCalculator() {
+        input = ""
+        operator = ""
+        displayTextView.text = ""
     }
 
-    private fun clearValue(){
-
-        //to clear stack
-        while(expressionStack.isNotEmpty()){
-            expressionStack.pop()
+    private fun calculateResult() {
+        if (operator.isEmpty() || input.endsWith(operator)) {
+            displayTextView.text = input
+            return
         }
 
-        //to change the value in the TextView
-        currentValue = "0"
-        valueTextView.text = currentValue
-    }
+        val operands = input.split("\\\\" + operator).toTypedArray()
 
-    private fun calculateValue(): Double {
+        if (operands.size != 2) {
+            displayTextView.text = "Error"
+            return
+        }
 
-        for (index in 1 until expressionStack.size) {
-            if((expressionStack[index-1] != '+' || expressionStack[index-1] != '-' ||expressionStack[index-1] != '/' ||expressionStack[index-1] != '*') &&
-                (expressionStack[index] != '+' || expressionStack[index] != '-' ||expressionStack[index] != '/' ||expressionStack[index] != '*')){
-                return throw IllegalArgumentException("Invalid expression")
+        val operand1 = operands[0].toDouble()
+        val operand2 = operands[1].toDouble()
+
+        val result: Double = when (operator) {
+            "+" -> operand1 + operand2
+            "-" -> operand1 - operand2
+            "*" -> operand1 * operand2
+            "/" -> {
+                if (operand2 == 0.0) {
+                    displayTextView.text = "Error"
+                    return
+                }
+                operand1 / operand2
+            }
+            "%" -> operand1 * (operand2 / 100)
+            else -> {
+                displayTextView.text = "Error"
+                return
             }
         }
 
-        if(expressionStack.size == 3){
-            val operand2 = expressionStack.pop()
-            val operator = expressionStack.pop()
-            val operand1 = expressionStack.pop()
-
-            return when(operator) {
-                "+" -> {
-                    val result = operand1.toString().toDouble() + operand2.toString().toDouble()
-                    expressionStack.push(result)
-                    result
-                } "-" -> {
-                    val result = operand1.toString().toDouble() - operand2.toString().toDouble()
-                    expressionStack.push(result)
-                    result
-                } "*" -> {
-                    val result = operand1.toString().toDouble() * operand2.toString().toDouble()
-                    expressionStack.push(result)
-                    result
-                } "/" -> {
-                    if(operand2.toString().toDouble() == 0.0){
-                        throw ArithmeticException("Dividing By Zero")
-                    }
-                    else{
-                        val result = operand1.toString().toDouble() / operand2.toString().toDouble()
-                        expressionStack.push(result)
-                        result
-                    }
-
-                } else -> throw UnsupportedOperationException("Unsupported Operator")
-
-            }
-        }
-
-        else if ( expressionStack.size == 2){
-            val operator = expressionStack.pop()
-            val operand = expressionStack.pop()
-
-            return when (operator) {
-                "%" -> operand.toString().toDouble() / 100
-                else -> throw UnsupportedOperationException("Unsupported Operator")
-            }
-        }
-        return throw IllegalArgumentException("Invalid Operation")
+        displayTextView.text = result.toString()
+        input = result.toString()
+        operator = ""
     }
-
 }
+

@@ -63,7 +63,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/number07"
+            android:id="@+id/number7"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -72,7 +72,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number08"
+            android:id="@+id/number8"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -81,7 +81,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number09"
+            android:id="@+id/number9"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -106,7 +106,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/number04"
+            android:id="@+id/number4"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -115,7 +115,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number05"
+            android:id="@+id/number5"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -124,7 +124,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number06"
+            android:id="@+id/number6"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -149,7 +149,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/number01"
+            android:id="@+id/number1"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -158,7 +158,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number02"
+            android:id="@+id/number2"
             android:layout_width="153dp"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_height="match_parent"
@@ -167,7 +167,7 @@
             android:textSize="24sp"/>
 
         <Button
-            android:id="@+id/number03"
+            android:id="@+id/number3"
             style="@android:style/Widget.Material.Button.Small"
             android:layout_width="153dp"
             android:layout_height="match_parent"
