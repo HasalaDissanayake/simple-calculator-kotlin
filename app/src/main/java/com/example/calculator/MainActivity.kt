@@ -9,9 +9,9 @@ import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var valueTextView: TextView
-    private val decimalFormat = DecimalFormat("#.##########")
+    private val decimalFormat = DecimalFormat("#.##########")  // used to convert resulting Double value to decimal format
     private var expression: String = "0"
-    private var initialFlag: Boolean = true
+    private var initialFlag: Boolean = true // used to check if its the initial time so '0' is replaced with text
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun appendValue(digit: String) {
-        if(initialFlag && expression == "0"){
+        if(initialFlag && expression == "0"){ // handling the initial appending of text and others
             expression = digit
             initialFlag = false
         } else{
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun calculateResult() {
         try {
             val result = evaluateExpression(expression)
-            expression = decimalFormat.format(result)
+            expression = decimalFormat.format(result) // convert to decimal format
             updateDisplay()
         } catch (e: ArithmeticException) {
             expression = "NaN"
