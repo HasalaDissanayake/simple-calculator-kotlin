@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
     private lateinit var valueTextView: TextView
     private val decimalFormat = DecimalFormat("#.##########")
     private var expression: String = "0"
-    private var initialFlag:Boolean = true
+    private var initialFlag: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,24 +20,15 @@ class MainActivity : AppCompatActivity() {
         valueTextView = findViewById(R.id.value)
 
         val numberButtons = listOf<Button>(
-            findViewById(R.id.number0),
-            findViewById(R.id.number1),
-            findViewById(R.id.number2),
-            findViewById(R.id.number3),
-            findViewById(R.id.number4),
-            findViewById(R.id.number5),
-            findViewById(R.id.number6),
-            findViewById(R.id.number7),
-            findViewById(R.id.number8),
-            findViewById(R.id.number9),
-            findViewById(R.id.decimal)
+            findViewById(R.id.number0), findViewById(R.id.number1), findViewById(R.id.number2),
+            findViewById(R.id.number3), findViewById(R.id.number4), findViewById(R.id.number5),
+            findViewById(R.id.number6), findViewById(R.id.number7), findViewById(R.id.number8),
+            findViewById(R.id.number9), findViewById(R.id.decimal)
         )
 
         val operatorButtons = listOf<Button>(
-            findViewById(R.id.addition),
-            findViewById(R.id.substraction),
-            findViewById(R.id.multiplication),
-            findViewById(R.id.division),
+            findViewById(R.id.addition), findViewById(R.id.substraction),
+            findViewById(R.id.multiplication), findViewById(R.id.division),
             findViewById(R.id.percentage)
         )
 
@@ -87,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             expression = decimalFormat.format(result)
             updateDisplay()
         } catch (e: ArithmeticException) {
-            expression = "Error"
+            expression = "NaN"
             updateDisplay()
         } catch (e: Exception) {
             expression = "Error"
@@ -108,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 val operand1 = parts[0].toDouble()
                 val operand2 = parts[1].toDouble()
                 if (operand2 == 0.0) {
-                    throw ArithmeticException("Division by zero")
+                    throw ArithmeticException()
                 }
                 operand1 / operand2
             }
